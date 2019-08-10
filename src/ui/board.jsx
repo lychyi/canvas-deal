@@ -12,12 +12,11 @@ export class CanvasDealBoard extends React.Component {
     } = this.props;
     return (
       <div>
-        <Card depth={canvas.depth[1]} padding={canvas.spacing.l}>
-          Remaining Draw Pile: { G.deck.length }
-        </Card>
-        <CanvasDealCard />
-        <h2>Used Cards</h2>
-        <h2>Your Hand</h2>
+        <h2>Remaining Draw Pile: {G.deck.length}</h2>
+        <h2>Your Hand : </h2>
+          {G.players[this.props.playerID].hand.map(item => {
+            return <CanvasDealCard>{item.name}</CanvasDealCard>;
+          })}
       </div>
     );
   }
