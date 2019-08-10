@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@workday/canvas-kit-react": "^3.0.0-alpha.3",
     "boardgame.io": "^0.32.1",
     "concurrently": "^4.1.1",
     "esm": "^3.2.25",
