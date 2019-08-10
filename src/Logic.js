@@ -1,24 +1,56 @@
+import SeedDeck from './seedDeck';
 
 function setup() {
-
+  return {cells: Array(9).fill(null), deck: SeedDeck.run() };
 }
 
 function drawCard() {
 
 }
 
-function PlayCard() {
+function playMoney() {
 
 }
 
-function onTurnStart() {
+function playAction() {
 
+}
+
+function playProperty() {
+
+}
+
+function discardCard() {
+
+}
+
+function flipWild() {
+
+}
+
+function movePropertyCard() {
+
+}
+
+function startTurn() {
+
+}
+
+function clickCell(G, ctx, id) {
+  G.cells[id] = ctx.currentPlayer;
 }
 
 const Logic = {
     setup,
     drawCard,
-    playCard,
-    onTurnStart
+    playMoney,
+    playAction,
+    playProperty,
+    discardCard,
+    flipWild,
+    movePropertyCard,
+    clickCell,
+    startTurn
 };
+
 export default Logic;
