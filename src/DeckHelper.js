@@ -1,10 +1,8 @@
 
-function drawCards(deck,quantity){
-  let draw = [];
+function drawCards(player, deck,quantity){
   for (let i=0; i < quantity; i++){
-    draw.push(deck.shift());
+    player.hand.push(deck.shift());
   }
-  return draw;
 }
 
 const DeckHelper = {drawCards};

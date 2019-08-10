@@ -1,16 +1,16 @@
-import SeedDeck from './seedDeck';
+import SeedDeck from './SeedDeck';
 import PlayerHelper from './PlayerHelper';
 import DeckHelper from './DeckHelper';
 
 function setup() {
   let deck = SeedDeck.run();
-  let players = [];
-  players["0"] = PlayerHelper.createPlayer(0);
+  let players = {};
+  players['0'] = PlayerHelper.createPlayer(0);
 
-  players["1"] = PlayerHelper.createPlayer(1);
+  players['1'] = PlayerHelper.createPlayer(1);
 
 
-  Object.values(players).forEach( player => (player.hand = DeckHelper.drawCards(deck,5)));
+  Object.values(players).forEach(player => {DeckHelper.drawCards(player, deck,5)});
 
   return {deck, players};
 }
@@ -44,7 +44,11 @@ function movePropertyCard() {
 }
 
 function startTurn(currentState, ctx) {
-  //currentState.players[this.ctx.currentPlayer];
+
+  let player = currentState.players[ctx.currentPlayer];
+
+  DeckHelper.drawCards(player, currentState.deck, 2);
+
 }
 
 const Logic = {
