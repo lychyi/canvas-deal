@@ -1,18 +1,19 @@
 import { Game } from 'boardgame.io/core';
-import SeedDeck from './seedDeck';
+import Logic from './logic';
 
 export const CanvasDeal = Game({
-  setup: () => ({ deck: SeedDeck.run() }),
+  setup: Logic.setup,
 
   moves: {
-    // draw card/s & draw 5
-    // play money card
-    // play action card
-    // play property card
-    // discard card
-    // flip wild card
-    // move property cards
+    drawCard: Logic.drawCard,
+    playMoney: Logic.playMoney,
+    playAction: Logic.playAction,
+    playProperty: Logic.playProperty,
+    discardCard: Logic.discardCard,
+    flipWild: Logic.flipWild,
+    movePropertyCard: Logic.movePropertyCard,
+    clickCell: Logic.clickCell,
   },
-  flow: {},
+  flow: {onTurn: Logic.startTurn},
   // playerView: () => ({ /* what the player sees */ }),
 });
