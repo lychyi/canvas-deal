@@ -14,6 +14,9 @@ export const CanvasDeal = Game({
     movePropertyCard: Logic.movePropertyCard,
     clickCell: Logic.clickCell,
   },
-  flow: {onTurn: Logic.startTurn},
+  flow: {
+    onTurnBegin: Logic.startTurn
+  }
+
   // playerView: () => ({ /* what the player sees */ }),
 });

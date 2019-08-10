@@ -1,11 +1,17 @@
 import React from 'react';
 
 export class CanvasDealBoard extends React.Component {
+
   render() {
     const {
       G,
       ...rest
     } = this.props;
+
+    function onEndClick() {
+    //  this.props.events.endTurn();
+    }
+
     return (
       <div>
         <h2>Used Cards</h2>
@@ -16,6 +22,8 @@ export class CanvasDealBoard extends React.Component {
               return <li>{item.name}</li>;
             })}
           </ul>
+
+          <button onClick={onEndClick()}>End Turn</button>
       </div>
     );
   }
