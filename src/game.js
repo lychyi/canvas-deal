@@ -1,7 +1,8 @@
 import { Game } from 'boardgame.io/core';
+import SeedDeck from './seedDeck';
 
 export const CanvasDeal = Game({
-  setup: () => ({cells: Array(9).fill(null)}),
+  setup: () => ({cells: Array(9).fill(null)}, deck: SeedDeck.run()),
 
   moves: {
     // draw card/s & draw 5
