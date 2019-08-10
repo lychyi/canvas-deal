@@ -1,7 +1,7 @@
 import SeedDeck from './seedDeck';
 
 function setup() {
-  return {deck: SeedDeck.run() };
+  return { deck: SeedDeck.run() };
 }
 
 function drawCard() {
@@ -36,10 +36,6 @@ function startTurn() {
 
 }
 
-function clickCell(G, ctx, id) {
-  G.cells[id] = ctx.currentPlayer;
-}
-
 const Logic = {
     setup,
     drawCard,
@@ -49,7 +45,6 @@ const Logic = {
     discardCard,
     flipWild,
     movePropertyCard,
-    clickCell,
     startTurn
 };
 
