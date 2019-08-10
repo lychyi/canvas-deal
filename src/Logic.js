@@ -1,4 +1,4 @@
-import SeedDeck from './seedDeck';
+import SeedDeck from './SeedDeck';
 import PlayerHelper from './PlayerHelper';
 import DeckHelper from './DeckHelper';
 
