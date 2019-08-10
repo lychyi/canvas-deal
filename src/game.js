@@ -1,5 +1,5 @@
 import { Game } from 'boardgame.io/core';
-import Logic from './logic';
+import Logic from './Logic';
 
 export const CanvasDeal = Game({
   setup: Logic.setup,

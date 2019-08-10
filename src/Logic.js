@@ -1,10 +1,8 @@
 import SeedDeck from './seedDeck';
-import PlayerHelper from './playerHelper';
-import DeckHelper from './deckHelper';
+import PlayerHelper from './PlayerHelper';
+import DeckHelper from './DeckHelper';
 
 function setup() {
-
-  let cells = Array(9).fill(null);
   let deck = SeedDeck.run();
   let players = [];
   players.push(PlayerHelper.createPlayer(0));
@@ -13,7 +11,7 @@ function setup() {
 
   players.forEach( player => (player.hand = DeckHelper.drawCards(deck,5)));
 
-  return {cells, deck, players};
+  return {deck, players};
 }
 
 function drawCard() {
@@ -48,10 +46,6 @@ function startTurn(currentState, ctx) {
   //currentState.players[this.ctx.currentPlayer];
 }
 
-function clickCell(G, ctx, id) {
-  G.cells[id] = ctx.currentPlayer;
-}
-
 const Logic = {
     setup,
     drawCard,
@@ -61,7 +55,6 @@ const Logic = {
     discardCard,
     flipWild,
     movePropertyCard,
-    clickCell,
     startTurn
 };
 

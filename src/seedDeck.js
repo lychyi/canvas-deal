@@ -1,7 +1,7 @@
 var data = [
   {
     "name": "Deal Breaker",
-    "qua": 2,
+    "quantity": 2,
     "description": "none",
     "value": 5,
     "color": "Purple",
@@ -120,7 +120,7 @@ var data = [
     "moneyCard": false
   },
   {
-    "name": "Baltic Ave",
+    "name": "Baltic Avenue",
     "quantity": 1,
     "description": "none",
     "value": 1,
@@ -132,7 +132,7 @@ var data = [
     "moneyCard": false
   },
   {
-    "name": "Med Ave",
+    "name": "Mediterranean Avenue",
     "quantity": 1,
     "description": "none",
     "value": 1,
@@ -312,7 +312,7 @@ var data = [
     "moneyCard": false
   },
   {
-    "name": "Short Line",
+    "name": "Short Line Railroad",
     "quantity": 1,
     "description": "none",
     "value": 2,
@@ -336,7 +336,7 @@ var data = [
     "moneyCard": false
   },
   {
-    "name": "Redding Raileroad",
+    "name": "Reading Railroad",
     "quantity": 1,
     "description": "none",
     "value": 2,
@@ -348,7 +348,7 @@ var data = [
     "moneyCard": false
   },
   {
-    "name": "Pennsyvania Avenue",
+    "name": "Pennsylvania Avenue",
     "quantity": 1,
     "description": "none",
     "value": 2,
@@ -568,7 +568,7 @@ var data = [
     "quantity": 2,
     "description": "none",
     "value": 1,
-    "color": "Yellow",
+    "color": "Green/Blue",
     "actionCard": false,
     "propertyCard": false,
     "wildCard": false,
@@ -580,7 +580,7 @@ var data = [
     "quantity": 2,
     "description": "none",
     "value": 1,
-    "color": "Yellow",
+    "color": "Brown/Light Blue",
     "actionCard": false,
     "propertyCard": false,
     "wildCard": false,
@@ -592,7 +592,7 @@ var data = [
     "quantity": 2,
     "description": "none",
     "value": 1,
-    "color": "Yellow",
+    "color": "Purple/Orange",
     "actionCard": false,
     "propertyCard": false,
     "wildCard": false,
@@ -604,7 +604,7 @@ var data = [
     "quantity": 2,
     "description": "none",
     "value": 1,
-    "color": "Yellow",
+    "color": "Black/Light Green",
     "actionCard": false,
     "propertyCard": false,
     "wildCard": false,
@@ -616,7 +616,7 @@ var data = [
     "quantity": 2,
     "description": "none",
     "value": 1,
-    "color": "Yellow",
+    "color": "Red/Yellow",
     "actionCard": false,
     "propertyCard": false,
     "wildCard": false,
@@ -700,16 +700,34 @@ var data = [
 
 const SeedDeck = {
   run: () => {
-      let deck = [];
-      let i = 0;
-      data.forEach((card) => {
-        for(i=0;i<card.quantity-1; i++)
-        deck.push(
-          card
-        );
-      });
-      return deck;
+    let deck = [];
+    data.forEach((card) => {
+      deck.push(card);
+      for(let i = 0; i < card.quantity - 1; i++) {
+        deck.push(card);
+      }
+    });
+    return shuffle(deck);
   }
+}
+
+// https://bost.ocks.org/mike/shuffle/
+const shuffle = (array) => {
+  var m = array.length, t, i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+
+  return array;
 }
 
 export default SeedDeck;
