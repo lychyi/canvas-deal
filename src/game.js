@@ -1,8 +1,6 @@
-import { Client } from 'boardgame.io/react';
 import { Game } from 'boardgame.io/core';
-import { TicTacToeBoard } from './ui';
 
-const TicTacToe = Game({
+export const TicTacToe = Game({
   setup: () => ({ cells: Array(9).fill(null) }),
 
   moves: {
@@ -11,11 +9,3 @@ const TicTacToe = Game({
     },
   },
 });
-
-const App = Client({
-  game: TicTacToe,
-  board: TicTacToeBoard,
-  multiplayer: { local: true }
-});
-
-export default App;
