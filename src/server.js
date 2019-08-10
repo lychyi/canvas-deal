@@ -1,4 +1,4 @@
 const Server = require('boardgame.io/server').Server;
-const TicTacToe = require('./game').TicTacToe;
-const server = Server({ games: [TicTacToe] });
+const CanvasDeal = require('./game').CanvasDeal;
+const server = Server({ games: [CanvasDeal] });
 server.run(8000);

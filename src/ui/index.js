@@ -1,1 +1,1 @@
-export { TicTacToeBoard } from './board.jsx';
+export { CanvasDealBoard } from './board.jsx';
