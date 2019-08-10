@@ -1,7 +1,19 @@
 import SeedDeck from './seedDeck';
+import PlayerHelper from './playerHelper';
+import DeckHelper from './deckHelper';
 
 function setup() {
-  return {cells: Array(9).fill(null), deck: SeedDeck.run() };
+
+  let cells = Array(9).fill(null);
+  let deck = SeedDeck.run();
+  let players = [];
+  players.push(PlayerHelper.createPlayer(0));
+  players.push(PlayerHelper.createPlayer(1));
+
+
+  players.forEach( player => (player.hand = DeckHelper.drawCards(deck,5)));
+
+  return {cells, deck, players};
 }
 
 function drawCard() {
@@ -32,8 +44,8 @@ function movePropertyCard() {
 
 }
 
-function startTurn() {
-
+function startTurn(currentState, ctx) {
+  //currentState.players[this.ctx.currentPlayer];
 }
 
 function clickCell(G, ctx, id) {
