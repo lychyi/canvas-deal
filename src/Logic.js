@@ -1,7 +1,7 @@
 import SeedDeck from './seedDeck';
 
 function setup() {
-  return {cells: Array(9).fill(null), deck: SeedDeck.run() };
+  return {deck: SeedDeck.run() };
 }
 
 function drawCard() {
