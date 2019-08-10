@@ -1,7 +1,7 @@
 import React from 'react';
 import { Client } from 'boardgame.io/react';
 import { CanvasDeal } from './game';
-import { CanvasDealBoard } from './ui/board';
+import { CanvasDealBoard } from './ui/Board';
 
 const CanvasDealClient = Client({
   game: CanvasDeal,
