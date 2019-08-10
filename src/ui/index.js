@@ -1,0 +1,1 @@
+export { TicTacToeBoard } from './board.jsx';

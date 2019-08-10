@@ -1,5 +1,6 @@
 import { Client } from 'boardgame.io/react';
 import { Game } from 'boardgame.io/core';
+import { TicTacToeBoard } from './ui';
 
 const TicTacToe = Game({
   setup: () => ({ cells: Array(9).fill(null) }),
@@ -11,6 +12,9 @@ const TicTacToe = Game({
   },
 });
 
-const App = Client({ game: TicTacToe });
+const App = Client({
+  game: TicTacToe,
+  board: TicTacToeBoard
+});
 
 export default App;
