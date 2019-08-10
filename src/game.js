@@ -14,7 +14,8 @@ const TicTacToe = Game({
 
 const App = Client({
   game: TicTacToe,
-  board: TicTacToeBoard
+  board: TicTacToeBoard,
+  multiplayer: { local: true }
 });
 
 export default App;
