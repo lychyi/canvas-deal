@@ -5,11 +5,12 @@ import DeckHelper from './DeckHelper';
 function setup() {
   let deck = SeedDeck.run();
   let players = [];
-  players.push(PlayerHelper.createPlayer(0));
-  players.push(PlayerHelper.createPlayer(1));
+  players["0"] = PlayerHelper.createPlayer(0);
+
+  players["1"] = PlayerHelper.createPlayer(1);
 
 
-  players.forEach( player => (player.hand = DeckHelper.drawCards(deck,5)));
+  Object.values(players).forEach( player => (player.hand = DeckHelper.drawCards(deck,5)));
 
   return {deck, players};
 }
