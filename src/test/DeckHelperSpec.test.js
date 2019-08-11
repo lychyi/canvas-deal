@@ -1,19 +1,11 @@
 import PlayerHelper from '../PlayerHelper';
 import DeckHelper from '../DeckHelper';
-
-const createMockDeck = (size, startIdAt) => {
-  let deck = [];
-  for (let i=0; i<size; i++) {
-    deck.push({id:startIdAt});
-    startIdAt = startIdAt+1;
-  }
-  return deck;
-}
+import TestHelper from './TestHelper';
 
 describe('Initial Dealing Cards', () => {
   it('removes initial dealt cards from deck', () => {
     let player = PlayerHelper.createPlayer(0);
-    let deck = createMockDeck(20, 0);
+    let deck = TestHelper.createMockDeck(20, 0);
 
     DeckHelper.initialDraw(player, 5, deck);
 
@@ -23,7 +15,7 @@ describe('Initial Dealing Cards', () => {
 
   it('adds the cards from deck to the players hand', () => {
     let player = PlayerHelper.createPlayer(0);
-    let deck = createMockDeck(20);
+    let deck = TestHelper.createMockDeck(20);
 
     DeckHelper.initialDraw(player, 5, deck);
 
@@ -34,11 +26,11 @@ describe('Initial Dealing Cards', () => {
 });
 
 describe('Drawing Cards', () => {
-  let playedPile = createMockDeck(4, 100);
+  let playedPile = TestHelper.createMockDeck(4, 100);
 
   it('draws cards and adds them to the players hand', () => {
     let player = PlayerHelper.createPlayer(0);
-    let deck = createMockDeck(20, 0);
+    let deck = TestHelper.createMockDeck(20, 0);
 
     let cardsDrawn = DeckHelper.drawCards(player, 2, {deck, playedPile});
 
@@ -49,7 +41,7 @@ describe('Drawing Cards', () => {
 
   it('draws cards and removes them from the deck', () => {
     let player = PlayerHelper.createPlayer(0);
-    let deck = createMockDeck(20, 0);
+    let deck = TestHelper.createMockDeck(20, 0);
 
     let cardsDrawn = DeckHelper.drawCards(player, 2, {deck, playedPile});
 
@@ -73,8 +65,8 @@ describe('Drawing Cards', () => {
 
   it('draws 2 cards and restocks the deck when there is 1 card left in the deck', () => {
     let player = PlayerHelper.createPlayer(0);
-    let deck = createMockDeck(1, 0);
-    playedPile = createMockDeck(4, 100);
+    let deck = TestHelper.createMockDeck(1, 0);
+    playedPile = TestHelper.createMockDeck(4, 100);
 
     let gs = {deck, playedPile};
 

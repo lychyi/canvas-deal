@@ -1,5 +1,6 @@
 import HandHelper from '../HandHelper';
 import PlayerHelper from '../PlayerHelper';
+import TestHelper from './TestHelper';
 
 describe('Cards in Hand', () => {
   let player = PlayerHelper.createPlayer(0);
@@ -10,6 +11,20 @@ describe('Cards in Hand', () => {
     HandHelper.removeCardFromHand(player,cardOne);
 
     expect(player.hand.length).toEqual(2);
+    expect(player.hand).not.toEqual(jasmine.arrayContaining([cardOne]));
+  });
+
+  it('Removes multiple cards from a players hand', () => {
+    player.hand = TestHelper.createMockDeck(10,10);
+
+    let cardOne = player.hand[0];
+    HandHelper.removeCardFromHand(player,cardOne);
+    cardOne = player.hand[0];
+    HandHelper.removeCardFromHand(player,cardOne);
+    cardOne = player.hand[0];
+    HandHelper.removeCardFromHand(player,cardOne);
+
+    expect(player.hand.length).toEqual(7);
     expect(player.hand).not.toEqual(jasmine.arrayContaining([cardOne]));
   });
 });

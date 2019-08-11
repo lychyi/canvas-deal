@@ -103,7 +103,7 @@ const onEndTurnClick = (props) => {
   if (props.G.players[0].hand.length > 7){
       throw Error('Too many Cards');
   }else{
-    this.props.events.endTurn();
+    props.events.endTurn();
   }
 }
 
@@ -152,7 +152,7 @@ export const Shell = (props) => {
                     <Label><strong>n moves remaining</strong></Label>
                   </div>
                 </Centered>
-                <Button buttonType={Button.Types.OutlinePrimary} icon={checkCircleIcon} onClick={onEndTurnClick}>End Turn</Button>
+                <Button buttonType={Button.Types.OutlinePrimary} icon={checkCircleIcon} onClick={() => onEndTurnClick(props)}>End Turn</Button>
 
                 <Button onClick={() => onDiscardClick(props)}>Discard</Button>
               </CardHeader>
