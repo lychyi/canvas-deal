@@ -1,4 +1,5 @@
-const uuidv4 = require('uuid/v4');
+import uuidv4 from 'uuid/v4';
+import DeckHelper from './DeckHelper';
 
 var data = [
   {
@@ -711,27 +712,10 @@ const SeedDeck = {
                   ...card});
       }
     });
-    return shuffle(deck);
+    return DeckHelper.shuffle(deck);
   }
 }
 
-// https://bost.ocks.org/mike/shuffle/
-const shuffle = (array) => {
-  var m = array.length, t, i;
 
-  // While there remain elements to shuffle…
-  while (m) {
-
-    // Pick a remaining element…
-    i = Math.floor(Math.random() * m--);
-
-    // And swap it with the current element.
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-  }
-
-  return array;
-}
 
 export default SeedDeck;

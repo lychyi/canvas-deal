@@ -6,28 +6,28 @@ import HandHelper from './HandHelper';
 function setup() {
   let deck = SeedDeck.run();
   let players = {};
+  let playedPile = [];
   players['0'] = PlayerHelper.createPlayer(0);
 
   players['1'] = PlayerHelper.createPlayer(1);
 
 
-  Object.values(players).forEach(player => {DeckHelper.drawCards(player, deck,5)});
+  Object.values(players).forEach(player => {DeckHelper.initialDraw(player,5,deck)});
 
-  return {deck, players};
+  return {deck, players, playedPile};
 }
 
-function drawCard() {
-
+function drawCard(player, currentState) {
+  DeckHelper.drawCards(player, 1, currentState);
 }
 
 function playMoneyCard(player, card) {
   HandHelper.removeCardFromHand(player, card);
   HandHelper.putCardInBank(player, card);
   HandHelper.updateBankValue(player);
-
 }
 
-function playActionCard(card, zone) {
+function playActionCard(player, card, zone) {
 
 }
 
@@ -55,7 +55,11 @@ function startTurn(currentState, ctx) {
 
   let player = currentState.players[ctx.currentPlayer];
 
-  DeckHelper.drawCards(player, currentState.deck, 2);
+  if (player.hand.length === 0){
+      DeckHelper.drawCards(player, 5, currentState);
+  }
+
+  DeckHelper.drawCards(player, 2, currentState);
 
 }
 
