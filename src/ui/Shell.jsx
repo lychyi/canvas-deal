@@ -7,7 +7,8 @@ import {
   IconButton,
   GlobalHeader,
   Layout,
-  AccentIcon
+  AccentIcon,
+  beta_Button as Button,
 } from '@workday/canvas-kit-react';
 
 import {
@@ -18,10 +19,11 @@ import {
   inboxIcon,
   notificationsIcon,
   relatedActionsIcon,
+  checkCircleIcon,
 } from '@workday/canvas-system-icons-web';
 
 import {
-  funIcon,
+  buildingMediumIcon,
   handMoneyIcon,
   personBriefcaseIcon,
   personEaselChartIcon,
@@ -89,12 +91,13 @@ const Grid = styled('div')(
   }
 )
 
-const PlayerAvatar = (props) => (
+const PlayerAvatar = ({children, color, icon, size = 48}) => (
   <Centered style={{flexDirection: 'column'}}>
-    <AccentIcon icon={props.icon} size={64} />
-    <Label>{props.children}</Label>
+    <AccentIcon color={color} icon={icon} size={size} />
+    <Label>{children}</Label>
   </Centered>
 );
+
 const Label = styled('p')({...canvasType.variant.label});
 export const Shell = (props) => {
   return (
@@ -106,23 +109,36 @@ export const Shell = (props) => {
       </GlobalHeader>
       <Bg></Bg>
       <Body>
-        <Card>
-          <h3 style={{ margin: 0 }}>Welcome, Player 1</h3>
-        </Card>
-        <Card>
-          <h3 style={{ margin: 0 }}>Play Area</h3>
-        </Card>
         <Layout gutter={0}>
-          <Layout.Column columns={6}>
+          <Layout.Column columns={8}>
+            <Card>
+              <Centered justify={false} style={{ marginBottom: canvas.spacing.l }}>
+                <AccentIcon icon={buildingMediumIcon} size={64} />
+                <div>
+                  <Label><strong>Property Lines</strong></Label>
+                </div>
+              </Centered>
+              {
+                players.map(p => {
+                  return (
+                    <Centered justify={false} style={{ marginBottom: canvas.spacing.m }}>
+                      <PlayerAvatar color={p.color} icon={p.icon} key={p.id}>Player {p.id}</PlayerAvatar>
+                    </Centered>
+                  );
+                })
+              }
+            </Card>
+          </Layout.Column>
+          <Layout.Column columns={4}>
             <Card>
               <CardHeader>
                 <Centered>
                   <AccentIcon icon={handMoneyIcon} size={64} />
                   <div>
-                    <Label><strong>Let's Play!</strong></Label>
+                    <Label><strong>n moves remaining</strong></Label>
                   </div>
                 </Centered>
-                <IconButton icon={relatedActionsIcon} buttonType={IconButton.Types.Plain} />
+                <Button buttonType={Button.Types.OutlinePrimary} icon={checkCircleIcon}>End Turn</Button>
               </CardHeader>
               <Centered>
                 {
@@ -131,26 +147,6 @@ export const Shell = (props) => {
                   })
                 }
               </Centered>
-            </Card>
-          </Layout.Column>
-          <Layout.Column columns={6}>
-            <Card>
-              <CardHeader>
-                <Centered>
-                  <AccentIcon icon={funIcon} size={64} />
-                  <div>
-                    <Label><strong>Players in the Lobby</strong></Label>
-                  </div>
-                </Centered>
-                <IconButton icon={relatedActionsIcon} buttonType={IconButton.Types.Plain} />
-              </CardHeader>
-                <Grid>
-                  {
-                    players.map(p => {
-                      return <PlayerAvatar icon={p.icon} key={p.id}>Player {p.id}</PlayerAvatar>
-                    })
-                  }
-                </Grid>
             </Card>
           </Layout.Column>
         </Layout>
@@ -162,26 +158,32 @@ export const Shell = (props) => {
 const players = [
   {
     id: 1,
-    icon: personBriefcaseIcon
+    icon: personBriefcaseIcon,
+    color: canvas.colors.watermelon500
   },
   {
     id: 2,
-    icon: personEaselChartIcon
+    icon: personEaselChartIcon,
+    color: canvas.colors.cinnamon600
   },
   {
     id: 3,
-    icon: personFlagIcon
+    icon: personFlagIcon,
+    color: canvas.colors.toothpaste400
   },
   {
     id: 4,
-    icon: personStarIcon
+    icon: personStarIcon,
+    color: canvas.colors.islandPunch400
   },
   {
     id: 5,
-    icon: personLoopIcon
+    icon: personLoopIcon,
+    color: canvas.colors.pomegranate400
   },
   {
     id: 6,
-    icon: personSearchIcon
+    icon: personSearchIcon,
+    color: canvas.colors.toastedMarshmallow400
   },
 ]
