@@ -5,7 +5,7 @@ import { Shell } from './Shell.jsx';
 export class CanvasDealBoard extends React.Component {
   render() {
     return (
-      <Shell />
+      <Shell {...this.props} />
     );
   }
 }

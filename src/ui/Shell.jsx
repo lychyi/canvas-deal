@@ -31,22 +31,22 @@ import {
   personStarIcon
 } from '@workday/canvas-accent-icons-web';
 
-import {ReactComponent as EmptyState} from '../assets/emptyState.svg';
-
 const Bg = styled('div')(
   {
+    position: 'absolute',
     backgroundColor: canvas.colors.blueberry400,
-    width: `100%`,
-    height: 320
+    width: `inherit`,
+    height: 320,
   }
 );
 
 const Body = styled('div')(
   {
+    boxSizing: 'border-box',
     position: 'relative',
     maxWidth: 1280,
     margin: `0 auto`,
-    top: -180
+    marginTop: canvas.spacing.m
   }
 );
 
@@ -98,7 +98,7 @@ const PlayerAvatar = (props) => (
 const Label = styled('p')({...canvasType.variant.label});
 export const Shell = (props) => {
   return (
-    <div style={{ backgroundColor: canvas.colors.frenchVanilla200, width: `calc(100% - 300px)`}}>
+    <div style={{ backgroundColor: canvas.colors.frenchVanilla200, width: `calc(100% - 300px)`, height: `100vh`}}>
       <GlobalHeader>
         <IconButton icon={notificationsIcon} buttonType={IconButton.Types.Circle} />
         <IconButton icon={inboxIcon} buttonType={IconButton.Types.Circle} />
@@ -108,6 +108,9 @@ export const Shell = (props) => {
       <Body>
         <Card>
           <h3 style={{ margin: 0 }}>Welcome, Player 1</h3>
+        </Card>
+        <Card>
+          <h3 style={{ margin: 0 }}>Play Area</h3>
         </Card>
         <Layout gutter={0}>
           <Layout.Column columns={6}>
@@ -122,7 +125,11 @@ export const Shell = (props) => {
                 <IconButton icon={relatedActionsIcon} buttonType={IconButton.Types.Plain} />
               </CardHeader>
               <Centered>
-                <EmptyState />
+                {
+                  props.G.players[0].hand.map(card => {
+                    return <p>{card.name}</p>
+                  })
+                }
               </Centered>
             </Card>
           </Layout.Column>
