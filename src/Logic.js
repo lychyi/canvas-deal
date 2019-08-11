@@ -1,6 +1,7 @@
 import SeedDeck from './SeedDeck';
 import PlayerHelper from './PlayerHelper';
 import DeckHelper from './DeckHelper';
+import HandHelper from './HandHelper';
 
 function setup() {
   let deck = SeedDeck.run();
@@ -19,27 +20,34 @@ function drawCard() {
 
 }
 
-function playMoney() {
+function playMoneyCard(player, card) {
+  HandHelper.removeCardFromHand(player, card);
+  HandHelper.putCardInBank(player, card);
+  HandHelper.updateBankValue(player);
 
 }
 
-function playAction() {
+function playActionCard(card, zone) {
 
 }
 
-function playProperty() {
+function playPropertyCard(card) {
 
 }
 
-function discardCard() {
+function playWildCard(card, zone) {
 
 }
 
-function flipWild() {
+function discardCard(card) {
 
 }
 
-function movePropertyCard() {
+function flipWild(card) {
+
+}
+
+function movePropertyCard(card) {
 
 }
 
@@ -54,13 +62,14 @@ function startTurn(currentState, ctx) {
 const Logic = {
     setup,
     drawCard,
-    playMoney,
-    playAction,
-    playProperty,
+    playMoneyCard,
+    playActionCard,
+    playPropertyCard,
+    playWildCard,
     discardCard,
     flipWild,
     movePropertyCard,
-    startTurn
+    startTurn,
 };
 
 export default Logic;

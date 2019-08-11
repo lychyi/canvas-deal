@@ -1,3 +1,5 @@
+const uuidv4 = require('uuid/v4');
+
 var data = [
   {
     "name": "Deal Breaker",
@@ -704,7 +706,9 @@ const SeedDeck = {
     data.forEach((card) => {
       deck.push(card);
       for(let i = 0; i < card.quantity - 1; i++) {
-        deck.push(card);
+        uuidv4();
+        deck.push({id: uuidv4(),
+                  ...card});
       }
     });
     return shuffle(deck);

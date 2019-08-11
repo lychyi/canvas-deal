@@ -5,7 +5,9 @@ function createPlayer(id){
     name: "player_"+id,
     hand:[],
     field:[],
-    money:[]
+    money:[],
+    bank:[],
+    bankValue:0,
   }
 }
 
