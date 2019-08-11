@@ -84,7 +84,8 @@ const Grid = styled('div')(
   {
     display: 'grid',
     gridTemplateColumns: `25% 25% 25% 25%`,
-    gridTemplateRows: `auto`
+    gridTemplateRows: `auto`,
+    gridRowGap: canvas.spacing.m
   }
 )
 
@@ -139,7 +140,7 @@ export const Shell = (props) => {
                 <Grid>
                   {
                     players.map(p => {
-                      return <PlayerAvatar icon={p.icon}>Player {p.id}</PlayerAvatar>
+                      return <PlayerAvatar icon={p.icon} key={p.id}>Player {p.id}</PlayerAvatar>
                     })
                   }
                 </Grid>
