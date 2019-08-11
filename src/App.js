@@ -10,12 +10,7 @@ const CanvasDealClient = Client({
 });
 
 const App = () => (
-  <div>
-    <h1>Player 0</h1>
-    <CanvasDealClient playerID="0" />
-    <h1>Player 1</h1>
-    <CanvasDealClient playerID="1" />
-  </div>
+  <CanvasDealClient playerID="0" />
 );
 
 export default App;

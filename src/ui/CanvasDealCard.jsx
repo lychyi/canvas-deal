@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { canvas } from '@workday/canvas-kit-react';
-import { AccentIcon } from '@workday/canvas-kit-react-icon';
-import { handMoneyIcon } from '@workday/canvas-accent-icons-web';
 
 const Card = styled('div')(
   {
@@ -54,7 +52,7 @@ const CanvasDealCard = (props) => {
       {
         !flipped ?
         <CardBack>
-          <AccentIcon icon={handMoneyIcon} size={.8 * width} color={canvas.colors.pomegranate600} />
+          { props.children }
         </CardBack>
         :
         <CardFront>
