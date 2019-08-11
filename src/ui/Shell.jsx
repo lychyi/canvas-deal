@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { 
+import {
   Avatar,
   canvas,
   IconButton,
@@ -98,6 +98,20 @@ const PlayerAvatar = ({children, color, icon, size = 48}) => (
   </Centered>
 );
 
+const onEndTurnClick = (props) => {
+  // need to change this discard because hard coded to first card of first player (ctx.currentPlayer)
+  if (props.G.players[0].hand.length > 7){
+      throw Error('Too many Cards');
+  }else{
+    this.props.events.endTurn();
+  }
+}
+
+const onDiscardClick = (props) => {
+  // need to change this discard because hard coded to first card of first player
+  props.moves.discardCard(props.G.players[0].hand[0]);
+}
+
 const Label = styled('p')({...canvasType.variant.label});
 export const Shell = (props) => {
   return (
@@ -138,7 +152,9 @@ export const Shell = (props) => {
                     <Label><strong>n moves remaining</strong></Label>
                   </div>
                 </Centered>
-                <Button buttonType={Button.Types.OutlinePrimary} icon={checkCircleIcon}>End Turn</Button>
+                <Button buttonType={Button.Types.OutlinePrimary} icon={checkCircleIcon} onClick={onEndTurnClick}>End Turn</Button>
+
+                <Button onClick={() => onDiscardClick(props)}>Discard</Button>
               </CardHeader>
               <Centered>
                 {

@@ -3,63 +3,68 @@ import PlayerHelper from './PlayerHelper';
 import DeckHelper from './DeckHelper';
 import HandHelper from './HandHelper';
 
-function setup() {
+const setup = () => {
   let deck = SeedDeck.run();
   let players = {};
   let playedPile = [];
-  players['0'] = PlayerHelper.createPlayer(0);
 
-  players['1'] = PlayerHelper.createPlayer(1);
-
+  players['0'] = PlayerHelper.createPlayer(1);
+  players['1'] = PlayerHelper.createPlayer(2);
 
   Object.values(players).forEach(player => {DeckHelper.initialDraw(player,5,deck)});
 
   return {deck, players, playedPile};
 }
 
-function drawCard(player, currentState) {
-  DeckHelper.drawCards(player, 1, currentState);
+const drawCard = (gameState, ctx)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
+
+  DeckHelper.drawCards(player, 1, gameState);
 }
 
-function playMoneyCard(player, card) {
+const playMoneyCard = (gameState, ctx, card)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
+
   HandHelper.removeCardFromHand(player, card);
   HandHelper.putCardInBank(player, card);
   HandHelper.updateBankValue(player);
 }
 
-function playActionCard(player, card, zone) {
+const playActionCard = (gameState, ctx, card, zone)  => {
 
 }
 
-function playPropertyCard(card) {
+const playPropertyCard = (gameState, ctx, card)  => {
 
 }
 
-function playWildCard(card, zone) {
+const playWildCard = (gameState, ctx, card, zone)  => {
 
 }
 
-function discardCard(card) {
+const discardCard = (gameState, ctx, card)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
+
+  HandHelper.removeCardFromHand(player, card);
+  DeckHelper.addCardToPlayedPile(card, gameState.playedPile);
+}
+
+const flipWild = (gameState, ctx, card)  => {
 
 }
 
-function flipWild(card) {
+const movePropertyCard = (gameState, ctx, card)  => {
 
 }
 
-function movePropertyCard(card) {
-
-}
-
-function startTurn(currentState, ctx) {
-
-  let player = currentState.players[ctx.currentPlayer];
+const startTurn = (gameState, ctx)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState, ctx);
 
   if (player.hand.length === 0){
-      DeckHelper.drawCards(player, 5, currentState);
+      DeckHelper.drawCards(player, 5, gameState);
   }
 
-  DeckHelper.drawCards(player, 2, currentState);
+  DeckHelper.drawCards(player, 2, gameState);
 
 }
 

@@ -1,5 +1,5 @@
 
-function createPlayer(id){
+const createPlayer = (id) => {
   return {
     id,
     name: "player_"+id,
@@ -11,6 +11,9 @@ function createPlayer(id){
   }
 }
 
-const PlayerHelper = {createPlayer};
+const getCurrentPlayer = (gameState, ctx) => {
+  return gameState.players[ctx.currentPlayer];
+};
+const PlayerHelper = {createPlayer, getCurrentPlayer};
 
 export default PlayerHelper;
