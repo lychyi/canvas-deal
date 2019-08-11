@@ -13,7 +13,7 @@ const drawCards = (player, quantity, gameState) => {
     for (let i=0; i < quantity; i++){
       let card = {};
       if (deck.length === 0){
-          restockDeckFromPlayedPile(deck, gameState.playedPile)
+          deck = restockDeckFromPlayedPile(gameState);
       }
 
       cardsDrawn.push(drawNextCard(deck,player));
@@ -32,6 +32,8 @@ const drawNextCard = (deck, player) => {
 const restockDeckFromPlayedPile = (gameState) => {
   gameState.deck = shuffle(gameState.playedPile);
   gameState.playedPile = [];
+
+  return gameState.deck;
 }
 
 // https://bost.ocks.org/mike/shuffle/

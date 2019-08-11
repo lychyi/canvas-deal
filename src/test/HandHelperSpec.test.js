@@ -1,7 +1,7 @@
 import HandHelper from '../HandHelper';
 import PlayerHelper from '../PlayerHelper';
 
-describe('Cards in Hand', function() {
+describe('Cards in Hand', () => {
   let player = PlayerHelper.createPlayer(0);
   it('Removes a card from players hand', () => {
     let cardOne = {id:0,name:"New Card"};
@@ -9,13 +9,12 @@ describe('Cards in Hand', function() {
 
     HandHelper.removeCardFromHand(player,cardOne);
 
-    console.log(player.hand);
     expect(player.hand.length).toEqual(2);
     expect(player.hand).not.toEqual(jasmine.arrayContaining([cardOne]));
   });
 });
 
-describe('Banking Cards', function() {
+describe('Banking Cards', () => {
   let player = PlayerHelper.createPlayer(0);
 
   it('Adds a card into the players bank', () => {

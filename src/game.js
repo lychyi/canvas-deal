@@ -12,7 +12,6 @@ export const CanvasDeal = Game({
     discardCard: Logic.discardCard,
     flipWild: Logic.flipWild,
     movePropertyCard: Logic.movePropertyCard,
-    clickCell: Logic.clickCell,
   },
   flow: {
     onTurnBegin: Logic.startTurn

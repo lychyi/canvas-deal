@@ -1,45 +1,88 @@
-import HandHelper from '../HandHelper';
 import PlayerHelper from '../PlayerHelper';
+import DeckHelper from '../DeckHelper';
 
-describe('Cards in Hand', function() {
-  let player = PlayerHelper.createPlayer(0);
-  it('Removes a card from players hand', () => {
-    let cardOne = {id:0,name:"New Card"};
-    player.hand = [cardOne,{id:1,name:"New Card 2"},{id:2,name:"New Card 3"}];
+const createMockDeck = (size, startIdAt) => {
+  let deck = [];
+  for (let i=0; i<size; i++) {
+    deck.push({id:startIdAt});
+    startIdAt = startIdAt+1;
+  }
+  return deck;
+}
 
-    HandHelper.removeCardFromHand(player,cardOne);
+describe('Initial Dealing Cards', () => {
+  it('removes initial dealt cards from deck', () => {
+    let player = PlayerHelper.createPlayer(0);
+    let deck = createMockDeck(20, 0);
 
-    console.log(player.hand);
-    expect(player.hand.length).toEqual(2);
-    expect(player.hand).not.toEqual(jasmine.arrayContaining([cardOne]));
+    DeckHelper.initialDraw(player, 5, deck);
+
+    expect(deck.length).toEqual(15);
+
   });
+
+  it('adds the cards from deck to the players hand', () => {
+    let player = PlayerHelper.createPlayer(0);
+    let deck = createMockDeck(20);
+
+    DeckHelper.initialDraw(player, 5, deck);
+
+    expect(player.hand.length).toEqual(5);
+
+  });
+
 });
 
-describe('Banking Cards', function() {
-  let player = PlayerHelper.createPlayer(0);
+describe('Drawing Cards', () => {
+  let playedPile = createMockDeck(4, 100);
 
-  it('Adds a card into the players bank', () => {
-    let card = {name:"New Card", type:"moneyCard"};
+  it('draws cards and adds them to the players hand', () => {
+    let player = PlayerHelper.createPlayer(0);
+    let deck = createMockDeck(20, 0);
 
-    HandHelper.putCardInBank(player,card);
+    let cardsDrawn = DeckHelper.drawCards(player, 2, {deck, playedPile});
 
-    expect(player.bank).toEqual(jasmine.arrayContaining([card]));
+    expect(player.hand.length).toEqual(2);
+    expect(player.hand).toEqual(jasmine.arrayContaining(cardsDrawn));
+
   });
 
-  it('Does not add a property card to the bank', () => {
-    let card = {name:"New Card", type:"propertyCard"};
+  it('draws cards and removes them from the deck', () => {
+    let player = PlayerHelper.createPlayer(0);
+    let deck = createMockDeck(20, 0);
 
-    try {
-      HandHelper.putCardInBank(player,card);
-    }catch (e) {
-      expect(player.bank).not.toEqual(jasmine.arrayContaining([card]));
-    }
+    let cardsDrawn = DeckHelper.drawCards(player, 2, {deck, playedPile});
+
+    expect(deck.length).toEqual(18);
+    expect(deck).not.toEqual(jasmine.arrayContaining(cardsDrawn));
   });
 
-  it ('Updates player bank value', () => {
-    player.bank = [{value:4},{value:3},{value:9},{value:3}];
-    HandHelper.updateBankValue(player);
+  it('draws cards and restocks the deck when there are no cards', () => {
+    let player = PlayerHelper.createPlayer(0);
+    let deck = [];
 
-    expect(player.bankValue).toEqual(19);
+    let gs = {deck, playedPile};
+
+    let cardsDrawn = DeckHelper.drawCards(player, 2, gs);
+
+    expect(gs.deck.length).toEqual(2);
+    expect(gs.deck).not.toEqual(jasmine.arrayContaining(cardsDrawn));
+    expect(gs.playedPile.length).toEqual(0);
+
   });
+
+  it('draws 2 cards and restocks the deck when there is 1 card left in the deck', () => {
+    let player = PlayerHelper.createPlayer(0);
+    let deck = createMockDeck(1, 0);
+    playedPile = createMockDeck(4, 100);
+
+    let gs = {deck, playedPile};
+
+    let cardsDrawn = DeckHelper.drawCards(player, 2, gs);
+
+    expect(gs.deck.length).toEqual(3);
+    expect(gs.deck).not.toEqual(jasmine.arrayContaining(cardsDrawn));
+    expect(gs.playedPile.length).toEqual(0);
+  });
+
 });

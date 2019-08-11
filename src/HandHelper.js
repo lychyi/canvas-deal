@@ -20,8 +20,8 @@ function removeCardFromHand(player, card) {
 }
 
 const HandHelper = {putCardInBank,
-  removeCardFromHand,
-  updateBankValue,
-};
+                    removeCardFromHand,
+                    updateBankValue,
+                    };
 
 export default HandHelper;
