@@ -79,7 +79,7 @@ describe('Add property to the field', () => {
 
   });
 
-  it('Cannot add blue wil card to a red set', () => {
+  it('Cannot add blue wild card to a red set', () => {
     let player = PlayerHelper.createPlayer(0);
     FieldHelper.addPropertyToField(player, {id:2,propertyCard:true, color:'red'});
 
@@ -94,6 +94,19 @@ describe('Add property to the field', () => {
 
     expect(redSet.properties.length).toEqual(1);
     expect(redSet.properties).not.toEqual(jasmine.arrayContaining([wildCard]));
+
+  });
+
+  it('Adds a card to a set and have it complete', () => {
+    let player = PlayerHelper.createPlayer(0);
+    FieldHelper.addPropertyToField(player, {id:2,propertyCard:true, color:'red'});
+    FieldHelper.addPropertyToField(player, {id:3,propertyCard:true, color:'red'});
+
+    FieldHelper.addPropertyToField(player, {id:1,propertyCard:true, color:'red'});
+
+    let redSet = FieldHelper.getColorSetFromField(player,'red');
+    
+    expect(redSet.complete).toBeTruthy();
 
   });
 

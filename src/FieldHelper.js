@@ -1,14 +1,16 @@
+import Rules from './Rules';
+import uuidv4 from 'uuid/v4';
+
 const addPropertyToField = (player, card) => {
   if (!card.propertyCard) {
     // !TODO - JP should errors live on the helper or on in the logic?
     throw Error('Cannot put this card on the field');
   }
   addCardToPlayerSet(player, card, card.color);
-    // !TODO - JP verify if a set is complete....
 }
 
-const addBuildingToField = () => {
-
+const addBuildingToField = (card, colorSetId) => {
+  //
 }
 
 const addWildToField = (player, card, color) => {
@@ -22,25 +24,29 @@ const addWildToField = (player, card, color) => {
   }else{
     throw Error('This wild card cannot be added to this color');
   }
+
+  // !TODO - JP verify if a set is complete....
 }
 
 const addCardToPlayerSet = (player, card, color) => {
   let colorSet = getColorSetFromField(player, color);
 
-  if (colorSet == undefined){
+
+  if (colorSet == undefined || colorSet.complete){
     colorSet = createFieldSet(color);
     player.field.push(colorSet);
   }
 
   colorSet.properties.push(card);
 
+  checkIfSetIsCompleteAndUpdate(colorSet);
 }
 
 const getColorSetFromField = (player, color) => {
   let colorSet;
 
   player.field.forEach(setItem => {
-    if (setItem.color === color && !setItem.complete){
+    if (setItem.color === color){
       colorSet = setItem;
     }
   });
@@ -50,11 +56,19 @@ const getColorSetFromField = (player, color) => {
 
 const createFieldSet = (color) => {
   return {
+      id: uuidv4(),
       properties:[],
       building: undefined,
       color: color,
       complete: false,
   }
+}
+
+const checkIfSetIsCompleteAndUpdate = (colorSet) => {
+  const cardRule = Rules.propertyRules[colorSet.color];
+
+  colorSet.complete = (cardRule.countToComplete === colorSet.properties.length);
+
 }
 
 const FieldHelper = {addPropertyToField,
