@@ -5,7 +5,6 @@ const createPlayer = (id) => {
     name: "player_"+id,
     hand:[],
     field:[],
-    money:[],
     bank:[],
     bankValue:0,
   }

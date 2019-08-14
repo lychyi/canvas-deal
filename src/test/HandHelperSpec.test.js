@@ -5,27 +5,33 @@ import TestHelper from './TestHelper';
 describe('Cards in Hand', () => {
   let player = PlayerHelper.createPlayer(0);
   it('Removes a card from players hand', () => {
-    let cardOne = {id:0,name:"New Card"};
-    player.hand = [cardOne,{id:1,name:"New Card 2"},{id:2,name:"New Card 3"}];
+    player.hand = TestHelper.createMockDeck(5,0);
 
-    HandHelper.removeCardFromHand(player,cardOne);
+    let card = HandHelper.removeCardFromHand(player,3);
 
-    expect(player.hand.length).toEqual(2);
-    expect(player.hand).not.toEqual(jasmine.arrayContaining([cardOne]));
+    expect(player.hand.length).toEqual(4);
+    expect(player.hand).not.toEqual(jasmine.arrayContaining([card]));
+    expect(card.id).toEqual(3);
+  });
+
+  it('Fails to removes a card from players hand when it does not exist', () => {
+    player.hand = TestHelper.createMockDeck(5,0);
+
+    HandHelper.removeCardFromHand(player,10);
+
+    expect(player.hand.length).toEqual(5);
+
   });
 
   it('Removes multiple cards from a players hand', () => {
-    player.hand = TestHelper.createMockDeck(10,10);
+    player.hand = TestHelper.createMockDeck(10,0);
 
-    let cardOne = player.hand[0];
-    HandHelper.removeCardFromHand(player,cardOne);
-    cardOne = player.hand[0];
-    HandHelper.removeCardFromHand(player,cardOne);
-    cardOne = player.hand[0];
-    HandHelper.removeCardFromHand(player,cardOne);
+    let c1 = HandHelper.removeCardFromHand(player, player.hand[0].id);
+    let c2 = HandHelper.removeCardFromHand(player,1);
+    let c3 = HandHelper.removeCardFromHand(player,3);
 
     expect(player.hand.length).toEqual(7);
-    expect(player.hand).not.toEqual(jasmine.arrayContaining([cardOne]));
+    expect(player.hand).not.toEqual(jasmine.arrayContaining([c1,c2,c3]));
   });
 });
 
@@ -33,7 +39,7 @@ describe('Banking Cards', () => {
   let player = PlayerHelper.createPlayer(0);
 
   it('Adds a card into the players bank', () => {
-    let card = {name:"New Card", type:"moneyCard"};
+    let card = {name:"New Card", moneyCard: true};
 
     HandHelper.putCardInBank(player,card);
 
@@ -41,7 +47,7 @@ describe('Banking Cards', () => {
   });
 
   it('Does not add a property card to the bank', () => {
-    let card = {name:"New Card", type:"propertyCard"};
+    let card = {name:"New Card", propertyCard: true};
 
     try {
       HandHelper.putCardInBank(player,card);

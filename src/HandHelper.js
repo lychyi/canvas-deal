@@ -1,12 +1,12 @@
-function putCardInBank(player, card) {
-  if (card.type === 'moneyCard' || card.type === 'actionCard') {
+const putCardInBank = (player, card) => {
+  if (card.moneyCard || card.actionCard) {
     player.bank.push(card);
   }else{
     throw Error('Cannot put this card in the bank');
   }
 }
 
-function updateBankValue(player){
+const updateBankValue = (player) =>{
   var value = 0;
   player.bank.forEach(card =>{
     value += card.value;
@@ -14,8 +14,15 @@ function updateBankValue(player){
   player.bankValue = value;
 }
 
-function removeCardFromHand(player, card) {
-  player.hand = player.hand.filter(handCard => handCard.id !== card.id);
+const removeCardFromHand = (player, cardId) => {
+  let card;
+  player.hand = player.hand.filter(handCard => {
+    if (cardId === handCard.id){
+      card = handCard;
+      return false;
+    }
+    return true;
+  });
   return card;
 }
 

@@ -1,4 +1,5 @@
 import SeedDeck from './SeedDeck';
+import FieldHelper from './FieldHelper'
 import PlayerHelper from './PlayerHelper';
 import DeckHelper from './DeckHelper';
 import HandHelper from './HandHelper';
@@ -22,38 +23,49 @@ const drawCard = (gameState, ctx)  => {
   DeckHelper.drawCards(player, 1, gameState);
 }
 
-const playMoneyCard = (gameState, ctx, card)  => {
+const playMoneyCard = (gameState, ctx, cardId)  => {
   let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
 
-  HandHelper.removeCardFromHand(player, card);
+  let card = HandHelper.removeCardFromHand(player, cardId);
   HandHelper.putCardInBank(player, card);
   HandHelper.updateBankValue(player);
 }
 
-const playActionCard = (gameState, ctx, card, zone)  => {
+const playActionCard = (gameState, ctx, cardId)  => {
 
 }
 
-const playPropertyCard = (gameState, ctx, card)  => {
-
-}
-
-const playWildCard = (gameState, ctx, card, zone)  => {
-
-}
-
-const discardCard = (gameState, ctx, card)  => {
+const playPropertyCard = (gameState, ctx, cardId)  => {
   let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
 
-  HandHelper.removeCardFromHand(player, card);
+  let card = HandHelper.removeCardFromHand(player, cardId);
+  FieldHelper.addPropertyToField(player, card);
+}
+
+const playBuildingCard = (gameState, ctx, cardId, colorSet)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
+
+  HandHelper.removeCardFromHand(player, cardId);
+
+
+}
+
+const playWildCard = (gameState, ctx, cardId, color)  => {
+
+}
+
+const discardCard = (gameState, ctx, cardId)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
+
+  let card = HandHelper.removeCardFromHand(player, cardId);
   DeckHelper.addCardToPlayedPile(card, gameState.playedPile);
 }
 
-const flipWild = (gameState, ctx, card)  => {
+const flipWild = (gameState, ctx, cardId)  => {
 
 }
 
-const movePropertyCard = (gameState, ctx, card)  => {
+const movePropertyCard = (gameState, ctx, cardId)  => {
 
 }
 
