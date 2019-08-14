@@ -46,12 +46,15 @@ const playBuildingCard = (gameState, ctx, cardId, colorSet)  => {
   let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
 
   HandHelper.removeCardFromHand(player, cardId);
-
+  FieldHelper.addBuildingToField(player, card);
 
 }
 
 const playWildCard = (gameState, ctx, cardId, color)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
 
+  HandHelper.removeCardFromHand(player, cardId);
+  FieldHelper.addPropertyToField(player, card);
 }
 
 const discardCard = (gameState, ctx, cardId)  => {
