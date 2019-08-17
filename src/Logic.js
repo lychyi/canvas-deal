@@ -2,6 +2,7 @@ import SeedDeck from './SeedDeck';
 import FieldHelper from './FieldHelper'
 import PlayerHelper from './PlayerHelper';
 import DeckHelper from './DeckHelper';
+import ActionHelper from './ActionHelper';
 import HandHelper from './HandHelper';
 
 const setup = () => {
@@ -32,7 +33,10 @@ const playMoneyCard = (gameState, ctx, cardId)  => {
 }
 
 const playActionCard = (gameState, ctx, cardId)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
 
+  let card = HandHelper.removeCardFromHand(player, cardId);
+  
 }
 
 const playPropertyCard = (gameState, ctx, cardId)  => {
@@ -42,8 +46,11 @@ const playPropertyCard = (gameState, ctx, cardId)  => {
   FieldHelper.addPropertyToField(player, card);
 }
 
-const playBuildingCard = (gameState, ctx, cardId, colorSet)  => {
+const playBuildingCard = (gameState, ctx, cardId, colorSetId)  => {
+  let player = PlayerHelper.getCurrentPlayer(gameState,ctx);
 
+  let card = HandHelper.removeCardFromHand(player, cardId);
+  FieldHelper.addBuildingToField(player, card, colorSetId)
 }
 
 const playWildCard = (gameState, ctx, cardId, color)  => {

@@ -17,10 +17,12 @@ describe('Cards in Hand', () => {
   it('Fails to removes a card from players hand when it does not exist', () => {
     player.hand = TestHelper.createMockDeck(5,0);
 
-    HandHelper.removeCardFromHand(player,10);
-
+    try {
+      HandHelper.removeCardFromHand(player,10);
+    } catch (e) {
+      expect(e).toBeDefined();
+    }
     expect(player.hand.length).toEqual(5);
-
   });
 
   it('Removes multiple cards from a players hand', () => {

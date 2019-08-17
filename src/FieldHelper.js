@@ -9,8 +9,21 @@ const addPropertyToField = (player, card) => {
   addCardToPlayerSet(player, card, card.color);
 }
 
-const addBuildingToField = (card, colorSetId) => {
-  //
+const addBuildingToField = (player, card, colorSetId) => {
+  if (!card.buildingCard) {
+    throw Error('This card is not a building card');
+  }
+
+  let colorSet = getColorSetFromFieldById(player, colorSetId);
+
+  if (colorSet.building != undefined) {
+    throw Error('Cannot add building this set already has a property');
+  }
+  if (!colorSet.complete) {
+    throw Error('Cannot add a building to a set that is not complete');
+  }
+
+  colorSet.building = card;
 }
 
 const addWildToField = (player, card, color) => {
@@ -32,7 +45,7 @@ const addCardToPlayerSet = (player, card, color) => {
   let colorSet = getColorSetFromField(player, color);
 
 
-  if (colorSet == undefined || colorSet.complete){
+  if (colorSet === undefined || colorSet.complete){
     colorSet = createFieldSet(color);
     player.field.push(colorSet);
   }
@@ -47,6 +60,18 @@ const getColorSetFromField = (player, color) => {
 
   player.field.forEach(setItem => {
     if (setItem.color === color){
+      colorSet = setItem;
+    }
+  });
+
+  return colorSet;
+}
+
+const getColorSetFromFieldById = (player, id) => {
+  let colorSet;
+
+  player.field.forEach(setItem => {
+    if (setItem.id === id){
       colorSet = setItem;
     }
   });
@@ -72,6 +97,7 @@ const checkIfSetIsCompleteAndUpdate = (colorSet) => {
 }
 
 const FieldHelper = {addPropertyToField,
+                     addBuildingToField,
                      addWildToField,
                      getColorSetFromField,
                      createFieldSet,

@@ -23,6 +23,11 @@ const removeCardFromHand = (player, cardId) => {
     }
     return true;
   });
+
+  if (card === undefined){
+    throw Error("Card cannot be found in players hand");
+  }
+
   return card;
 }
 

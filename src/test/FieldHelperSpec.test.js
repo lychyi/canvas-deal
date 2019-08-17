@@ -105,8 +105,40 @@ describe('Add property to the field', () => {
     FieldHelper.addPropertyToField(player, {id:1,propertyCard:true, color:'red'});
 
     let redSet = FieldHelper.getColorSetFromField(player,'red');
-    
+
     expect(redSet.complete).toBeTruthy();
+
+  });
+
+});
+
+describe('Play all cards to the field', () => {
+  it('Add four properties, two wilds and a building', () => {
+      let player = PlayerHelper.createPlayer(0),
+          wildCard1 = {id:0,wildCard:true, color:'red,yellow'},
+          prop1 = {id:1,propertyCard:true, color:'red'},
+          prop2 = {id:2,propertyCard:true, color:'red'},
+          prop3 = {id:3,propertyCard:true, color:'green'},
+          prop4 = {id:4,propertyCard:true, color:'yellow'},
+          wildCard2 = {id:0,wildCard:true, color:'black,green'},
+          building = {id:5,buildingCard:true};
+
+      FieldHelper.addPropertyToField(player, prop1);
+      FieldHelper.addWildToField(player, wildCard1, 'red');
+      FieldHelper.addPropertyToField(player, prop2);
+      FieldHelper.addPropertyToField(player, prop3);
+      FieldHelper.addPropertyToField(player, prop4);
+      FieldHelper.addWildToField(player, wildCard2, 'green');
+
+      let redSet = FieldHelper.getColorSetFromField(player,'red');
+
+      FieldHelper.addBuildingToField(player, building, redSet.id);
+
+      expect(redSet.properties.length).toEqual(3);
+      expect(redSet.complete).toBeTruthy();
+      expect(redSet.building).toEqual(building);
+      expect(player.field.length).toEqual(3);
+
 
   });
 
